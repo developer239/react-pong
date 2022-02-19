@@ -6,8 +6,9 @@ export const useGameStyles = () => {
   const stageRef = useRef(null)
   const { width, height } = useWindowSize()
 
-  const getWidth = () => (width / 3) * 2
-  const getHeight = () => (height / 3) * 2
+  const getGameWidth = () => (width / 3) * 2
+
+  const getGameHeight = () => (height / 3) * 2
 
   useEffect(() => {
     if (stageRef.current) {
@@ -15,10 +16,10 @@ export const useGameStyles = () => {
 
       stage.container().style.backgroundColor = 'black'
       stage.container().style.height = 'auto'
-      stage.container().style.width = `${getWidth()}px;`
-      stage.container().style.height = `${getHeight()}px;`
+      stage.container().style.width = `${getGameWidth()}px;`
+      stage.container().style.height = `${getGameHeight()}px;`
     }
   }, [stageRef.current, width, height])
 
-  return { stageRef, width: getWidth(), height: getHeight() }
+  return { stageRef, width: getGameWidth(), height: getGameHeight() }
 }
