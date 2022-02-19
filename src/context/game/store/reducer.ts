@@ -26,7 +26,7 @@ export const reducer = (state: IState, action: IAction) => {
         ...state,
         [action.payload.player]: {
           ...player,
-          y: player.y - 1,
+          y: player.y - action.payload.deltaPx,
         },
       }
     }
@@ -37,7 +37,7 @@ export const reducer = (state: IState, action: IAction) => {
         ...state,
         [action.payload.player]: {
           ...player,
-          y: player.y + 1,
+          y: player.y + action.payload.deltaPx,
         },
       }
     }
