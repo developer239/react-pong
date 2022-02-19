@@ -1,8 +1,8 @@
 import Konva from 'konva'
 import { useEffect, useRef } from 'react'
-import { useWindowSize } from 'src/components/Game/hooks/useWindowSize'
+import { useWindowSize } from 'src/hooks/useWindowSize'
 
-export const useGameStyles = () => {
+export const useStyles = () => {
   const stageRef = useRef(null)
   const { width, height } = useWindowSize()
 

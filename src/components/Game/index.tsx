@@ -1,10 +1,13 @@
 import { Stage, Layer } from 'react-konva'
 import { Ball } from 'src/components/Ball'
-import { useGameStyles } from 'src/components/Game/hooks/useGameStyles'
+import { useGameLoop } from 'src/components/Game/hooks/_useGameLoop'
+import { useSetup } from 'src/components/Game/hooks/_useSetup'
 import { Player } from 'src/components/Player'
 
 const Game = () => {
-  const { stageRef, width, height } = useGameStyles()
+  const { stageRef, width, height } = useSetup()
+
+  useGameLoop()
 
   return (
     <Stage ref={stageRef} width={width} height={height}>
