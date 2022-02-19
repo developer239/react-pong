@@ -8,4 +8,11 @@ export const moveDown = (player: 'player1' | 'player2', deltaPx: number) => ({
   payload: { player, deltaPx },
 })
 
-export type IAction = ReturnType<typeof moveUp | typeof moveDown>
+export const moveBall = (deltaPx: number) => ({
+  type: 'MOVE_BALL' as const,
+  payload: { deltaPx },
+})
+
+export type IAction = ReturnType<
+  typeof moveUp | typeof moveDown | typeof moveBall
+>

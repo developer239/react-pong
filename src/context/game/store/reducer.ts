@@ -41,6 +41,16 @@ export const reducer = (state: IState, action: IAction) => {
         },
       }
     }
+    case 'MOVE_BALL': {
+      return {
+        ...state,
+        ball: {
+          ...state.ball,
+          x: state.ball.x + action.payload.deltaPx,
+          y: state.ball.y + action.payload.deltaPx,
+        },
+      }
+    }
     default:
       return state
   }

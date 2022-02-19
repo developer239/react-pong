@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { GameContext } from 'src/context/game/GameContext'
-import { moveDown, moveUp } from 'src/context/game/store/actions'
+import { moveBall, moveDown, moveUp } from 'src/context/game/store/actions'
 import { useInterval } from 'src/hooks/useInterval'
 import { useKeyPress } from 'src/hooks/useKeyPress'
 
@@ -18,15 +18,19 @@ export const useGameLoop = () => {
   const cycle = () => {
     deltaTime = (Date.now() - millisecondsPreviousFrame) / 1000.0
 
+    if (deltaTime < 1) {
+      if (hasPressed('ArrowUp') || hasPressed('Up')) {
+        dispatch(moveUp('player1', 500 * deltaTime))
+      }
+
+      if (hasPressed('ArrowDown') || hasPressed('Down')) {
+        dispatch(moveDown('player1', 500 * deltaTime))
+      }
+
+      dispatch(moveBall(100 * deltaTime))
+    }
+
     millisecondsPreviousFrame = Date.now()
-
-    if (hasPressed('ArrowUp') || hasPressed('Up')) {
-      dispatch(moveUp('player1', 500 * deltaTime))
-    }
-
-    if (hasPressed('ArrowDown') || hasPressed('Down')) {
-      dispatch(moveDown('player1', 500 * deltaTime))
-    }
 
     clearKeys()
   }
