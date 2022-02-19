@@ -5,4 +5,8 @@ module.exports = {
     '@linters/eslint-config-jest',
     'prettier',
   ],
+  rules: {
+    // TODO: update the package
+    'react/react-in-jsx-scope': 0
+  }
 }
