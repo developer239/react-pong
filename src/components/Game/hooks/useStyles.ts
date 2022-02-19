@@ -6,20 +6,16 @@ export const useStyles = () => {
   const stageRef = useRef(null)
   const { width, height } = useWindowSize()
 
-  const getGameWidth = () => (width / 3) * 2
-
-  const getGameHeight = () => (height / 3) * 2
-
   useEffect(() => {
     if (stageRef.current) {
       const stage = stageRef.current as Konva.Stage
 
       stage.container().style.backgroundColor = 'black'
       stage.container().style.height = 'auto'
-      stage.container().style.width = `${getGameWidth()}px;`
-      stage.container().style.height = `${getGameHeight()}px;`
+      stage.container().style.width = `${width}px;`
+      stage.container().style.height = `${height}px;`
     }
   }, [stageRef.current, width, height])
 
-  return { stageRef, width: getGameWidth(), height: getGameHeight() }
+  return { stageRef, width: window.innerWidth, height: window.innerHeight }
 }

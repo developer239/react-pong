@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { getWindowHeight, getWindowWidth } from 'src/services/window'
 
 export interface IWindowSize {
   width: number
@@ -14,8 +15,8 @@ export const useWindowSize = () => {
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: getWindowWidth(),
+        height: getWindowHeight(),
       })
     }
 
