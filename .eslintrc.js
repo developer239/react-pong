@@ -6,6 +6,8 @@ module.exports = {
     'prettier',
   ],
   rules: {
+    // Allow x, y
+    'id-length': 0,
     // TODO: update the package
     'react/react-in-jsx-scope': 0
   }
