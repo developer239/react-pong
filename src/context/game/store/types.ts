@@ -2,6 +2,8 @@ export interface IState {
   ball: {
     x: number
     y: number
+    deltaX: number
+    deltaY: number
   }
   player1: {
     x: number
