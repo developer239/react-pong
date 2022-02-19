@@ -1,5 +1,7 @@
-import { Stage, Layer, Rect, Text, Line, Circle } from 'react-konva'
+import { Stage, Layer } from 'react-konva'
+import { Ball } from 'src/components/Ball'
 import { useGameStyles } from 'src/components/Game/hooks/useGameStyles'
+import { Player } from 'src/components/Player'
 
 const Game = () => {
   const { stageRef, width, height } = useGameStyles()
@@ -7,27 +9,9 @@ const Game = () => {
   return (
     <Stage ref={stageRef} width={width} height={height}>
       <Layer>
-        <Text text="Some text on canvas" fontSize={15} fill="white" />
-        <Rect
-          x={20}
-          y={50}
-          width={(width / 10) * 2}
-          height={100}
-          fill="red"
-          shadowBlur={10}
-        />
-        <Circle x={200} y={100} radius={50} fill="green" />
-        <Line
-          x={20}
-          y={200}
-          points={[0, 0, 100, 0, 100, 100]}
-          tension={0.5}
-          closed
-          stroke="black"
-          fillLinearGradientStartPoint={{ x: -50, y: -50 }}
-          fillLinearGradientEndPoint={{ x: 50, y: 50 }}
-          fillLinearGradientColorStops={[0, 'red', 1, 'yellow']}
-        />
+        <Player y={20} x={20} />
+        <Player y={20} x={60} />
+        <Ball y={20} x={100} />
       </Layer>
     </Stage>
   )
