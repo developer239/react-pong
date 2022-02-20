@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useRef } from 'react'
 import { GameContext } from 'src/context/game/GameContext'
 import {
   moveBall,
@@ -11,39 +11,33 @@ import { useInterval } from 'src/hooks/useInterval'
 import { useKeyPress } from 'src/hooks/useKeyPress'
 import { calculateDeltaTime } from 'src/services/time'
 
-// TODO: useRef or test performance when stored in state
-// !! We want to avoid React fiber re-renders
-
-let msPreviousFrame = 0
-let deltaTime = 0
-
-// !!
-
 export const useGameLoop = () => {
+  const msPreviousFrameRef = useRef(0)
+  const deltaTimeRef = useRef(0)
   const { dispatch } = useContext(GameContext)
   const { hasPressed, clearKeys } = useKeyPress()
 
   const processFrame = () => {
-    deltaTime = calculateDeltaTime(msPreviousFrame)
+    deltaTimeRef.current = calculateDeltaTime(msPreviousFrameRef.current)
 
-    if (deltaTime < 1) {
+    if (deltaTimeRef.current < 1) {
       if (hasPressed('ArrowUp') || hasPressed('Up')) {
-        dispatch(moveUp('player1', deltaTime))
+        dispatch(moveUp('player1', deltaTimeRef.current))
       }
 
       if (hasPressed('ArrowDown') || hasPressed('Down')) {
-        dispatch(moveDown('player1', deltaTime))
+        dispatch(moveDown('player1', deltaTimeRef.current))
       }
 
       // Move roughly every 125ms
-      if (msPreviousFrame % 125 < 15) {
-        dispatch(playAI(deltaTime))
+      if (msPreviousFrameRef.current % 125 < 15) {
+        dispatch(playAI(deltaTimeRef.current))
       }
 
-      dispatch(moveBall(deltaTime))
+      dispatch(moveBall(deltaTimeRef.current))
     }
 
-    msPreviousFrame = Date.now()
+    msPreviousFrameRef.current = Date.now()
 
     clearKeys()
   }
