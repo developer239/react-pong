@@ -1,16 +1,18 @@
-export const moveUp = (player: 'player1' | 'player2', deltaPx: number) => ({
+import { THumanPlayer } from 'src/context/game/store/types'
+
+export const moveUp = (player: THumanPlayer, deltaTime: number) => ({
   type: 'MOVE_UP' as const,
-  payload: { player, deltaPx },
+  payload: { player, deltaTime },
 })
 
-export const moveDown = (player: 'player1' | 'player2', deltaPx: number) => ({
+export const moveDown = (player: THumanPlayer, deltaTime: number) => ({
   type: 'MOVE_DOWN' as const,
-  payload: { player, deltaPx },
+  payload: { player, deltaTime },
 })
 
-export const moveBall = (delta: number) => ({
+export const moveBall = (deltaTime: number) => ({
   type: 'MOVE_BALL' as const,
-  payload: { delta },
+  payload: { deltaTime },
 })
 
 export type IAction = ReturnType<

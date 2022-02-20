@@ -1,6 +1,7 @@
 import { FC, useReducer } from 'react'
 import { GameContext } from 'src/context/game/GameContext'
-import { defaultState, reducer } from 'src/context/game/store/reducer'
+import { defaultState } from 'src/context/game/store/data'
+import { reducer } from 'src/context/game/store/reducer'
 
 export const GameContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState)

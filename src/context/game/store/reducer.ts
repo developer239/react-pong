@@ -1,75 +1,44 @@
 /* eslint-disable complexity */
 import { BALL_HEIGHT, BALL_WIDTH } from 'src/components/Ball/data'
-import { PLAYER_HEIGHT } from 'src/components/Player/data'
 import { IAction } from 'src/context/game/store/actions'
-import { IState } from 'src/context/game/store/types'
+import { IPlayer, IState } from 'src/context/game/store/types'
 import { calculateNewBallPosition } from 'src/services/ball'
 import { checkBallPlayerCollision } from 'src/services/collision'
-import { minMax, mutateVelocity } from 'src/services/math'
+import { mutateVelocity } from 'src/services/math'
+import { updatePlayerPosition } from 'src/services/player'
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'src/services/window'
-
-export const defaultState = {
-  ball: {
-    position: {
-      x: WINDOW_WIDTH / 2,
-      y: WINDOW_HEIGHT / 2 - BALL_HEIGHT,
-    },
-    velocity: {
-      x: 200,
-      y: 200,
-    },
-  },
-  player1: {
-    position: {
-      x: 100,
-      y: WINDOW_HEIGHT / 2 - PLAYER_HEIGHT,
-    },
-  },
-  player2: {
-    position: {
-      x: WINDOW_WIDTH - 100,
-      y: WINDOW_HEIGHT / 2 - PLAYER_HEIGHT,
-    },
-  },
-}
 
 export const reducer = (state: IState, action: IAction): IState => {
   switch (action.type) {
-    // TODO: set velocityX and velocityY instead of speed
+    case 'MOVE_DOWN':
     case 'MOVE_UP': {
-      const player = state[action.payload.player]
-
-      return {
-        ...state,
-        [action.payload.player]: {
-          ...player,
-          position: {
-            ...player.position,
-            y: minMax(
-              player.position.y - action.payload.deltaPx,
-              0,
-              WINDOW_HEIGHT - PLAYER_HEIGHT
-            ),
-          },
-        },
+      const player: IPlayer = {
+        ...state[action.payload.player],
       }
-    }
-    // TODO: set velocityX and velocityY instead of speed
-    case 'MOVE_DOWN': {
-      const player = state[action.payload.player]
+
+      // Update player velocity
+
+      if (action.type === 'MOVE_DOWN') {
+        player.velocity.y = 2000
+      }
+
+      if (action.type === 'MOVE_UP') {
+        player.velocity.y = -2000
+      }
+
+      // Update player position
+
+      const newPosition = updatePlayerPosition(
+        player.position,
+        player.velocity,
+        action.payload.deltaTime
+      )
 
       return {
         ...state,
         [action.payload.player]: {
           ...player,
-          position: {
-            ...player.position,
-            y: minMax(
-              player.position.y + action.payload.deltaPx,
-              0,
-              WINDOW_HEIGHT - PLAYER_HEIGHT
-            ),
-          },
+          position: newPosition,
         },
       }
     }
@@ -80,7 +49,7 @@ export const reducer = (state: IState, action: IAction): IState => {
       const newPosition = calculateNewBallPosition(
         state.ball.position,
         state.ball.velocity,
-        action.payload.delta
+        action.payload.deltaTime
       )
       const newVelocity = {
         ...state.ball.velocity,
