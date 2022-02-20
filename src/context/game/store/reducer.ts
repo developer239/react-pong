@@ -1,7 +1,8 @@
-/* eslint-disable complexity */
+/* eslint-disable complexity,max-lines-per-function */
 import { BALL_HEIGHT, BALL_WIDTH } from 'src/components/Ball/data'
 import { PLAYER_HEIGHT } from 'src/components/Player/data'
 import { IAction } from 'src/context/game/store/actions'
+import { defaultState } from 'src/context/game/store/data'
 import { IPlayer, IState } from 'src/context/game/store/types'
 import { calculateNewBallPosition } from 'src/services/ball'
 import { checkBallPlayerCollision } from 'src/services/collision'
@@ -75,52 +76,69 @@ export const reducer = (state: IState, action: IAction): IState => {
     case 'MOVE_BALL': {
       // Update ball position
 
-      const newPosition = calculateNewBallPosition(
+      const newBallPosition = calculateNewBallPosition(
         state.ball.position,
         state.ball.velocity,
         action.payload.deltaTime
       )
-      const newVelocity = {
+      const newBallVelocity = {
         ...state.ball.velocity,
       }
-
-      // Check screen LEFT / RIGHT collision
-
-      const isTopOrBottomScreenCollision =
-        newPosition.y <= 0 || newPosition.y >= WINDOW_HEIGHT - BALL_HEIGHT
-
-      if (isTopOrBottomScreenCollision) {
-        mutateVelocity('y', newVelocity)
+      const newGameScore = {
+        ...state.score,
       }
 
-      // Check screen TOP / BOTTOM collision && player collision
+      // Check screen TOP / BOTTOM collision
 
-      const isLeftOrRightScreenCollision =
-        newPosition.x <= 0 || newPosition.x >= WINDOW_WIDTH - BALL_WIDTH
+      const isTopOrBottomScreenCollision =
+        newBallPosition.y <= 0 ||
+        newBallPosition.y >= WINDOW_HEIGHT - BALL_HEIGHT
+
+      if (isTopOrBottomScreenCollision) {
+        mutateVelocity('y', newBallVelocity)
+      }
+
+      // Check screen player collision
 
       const hasPlayer1Collided = checkBallPlayerCollision(
-        newPosition,
+        newBallPosition,
         state.player1.position
       )
       const hasPlayer2Collided = checkBallPlayerCollision(
-        newPosition,
+        newBallPosition,
         state.player2.position
       )
 
-      if (
-        isLeftOrRightScreenCollision ||
-        hasPlayer1Collided ||
-        hasPlayer2Collided
-      ) {
-        mutateVelocity('x', newVelocity)
+      if (hasPlayer1Collided || hasPlayer2Collided) {
+        mutateVelocity('x', newBallVelocity)
+      }
+
+      // Check score conditions
+
+      const isLeftScreenSideCollision = newBallPosition.x <= 0
+      if (isLeftScreenSideCollision) {
+        newGameScore.player2 += 1
+
+        newBallPosition.x = defaultState.ball.position.x
+        newBallVelocity.x *= -1
+      }
+
+      const isRightScreenSideCollision =
+        newBallPosition.x >= WINDOW_WIDTH - BALL_WIDTH
+      if (isRightScreenSideCollision) {
+        newGameScore.player1 += 1
+
+        newBallPosition.x = defaultState.ball.position.x
+        newBallVelocity.x *= -1
       }
 
       return {
         ...state,
+        score: newGameScore,
         ball: {
           ...state.ball,
-          position: newPosition,
-          velocity: newVelocity,
+          position: newBallPosition,
+          velocity: newBallVelocity,
         },
       }
     }

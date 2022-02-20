@@ -11,6 +11,7 @@ import { useInterval } from 'src/hooks/useInterval'
 import { useKeyPress } from 'src/hooks/useKeyPress'
 import { calculateDeltaTime } from 'src/services/time'
 
+// TODO: useRef or test performance when stored in state
 // !! We want to avoid React fiber re-renders
 
 let msPreviousFrame = 0

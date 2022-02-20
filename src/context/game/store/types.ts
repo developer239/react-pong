@@ -16,6 +16,10 @@ export interface IPlayer {
 }
 
 export interface IState {
+  score: {
+    player1: number
+    player2: number
+  }
   ball: IBall
   player1: IPlayer
   player2: IPlayer

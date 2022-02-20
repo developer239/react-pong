@@ -8,6 +8,10 @@ export const FPS = 60
 export const MS_PER_FRAME = 1000 / FPS
 
 export const defaultState: IState = {
+  score: {
+    player1: 0,
+    player2: 0,
+  },
   ball: {
     position: {
       x: WINDOW_WIDTH / 2,
