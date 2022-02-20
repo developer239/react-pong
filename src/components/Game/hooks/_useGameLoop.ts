@@ -29,8 +29,8 @@ export const useGameLoop = () => {
         dispatch(moveDown('player1', deltaTimeRef.current))
       }
 
-      // Move roughly every 125ms
-      if (msPreviousFrameRef.current % 125 < 15) {
+      // Move roughly every 25ms
+      if (msPreviousFrameRef.current % 25 < 15) {
         dispatch(playAI(deltaTimeRef.current))
       }
 

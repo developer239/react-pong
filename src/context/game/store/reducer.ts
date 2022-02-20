@@ -39,7 +39,7 @@ export const reducer = (state: IState, action: IAction): IState => {
       // make right paddle movement more smooth
       const isSignificantDiff =
         Math.abs(Math.abs(ballCenterVertical) - Math.abs(paddleCenter)) >
-        WINDOW_HEIGHT * 0.2
+        PLAYER_HEIGHT / 3
 
       if (isSignificantDiff) {
         const direction = paddleCenter < ballCenterHorizontal ? 1 : -1
@@ -146,18 +146,24 @@ export const reducer = (state: IState, action: IAction): IState => {
       const isLeftScreenSideCollision = newBallPosition.x <= 0
       if (isLeftScreenSideCollision) {
         newGameScore.player2 += 1
-
-        newBallPosition.x = defaultState.ball.position.x
-        newBallVelocity.x *= -1
       }
 
       const isRightScreenSideCollision =
         newBallPosition.x >= WINDOW_WIDTH - BALL_WIDTH
       if (isRightScreenSideCollision) {
         newGameScore.player1 += 1
+      }
+
+      if (isLeftScreenSideCollision || isRightScreenSideCollision) {
+        newBallPosition.y = Math.random() * (WINDOW_HEIGHT - BALL_HEIGHT)
 
         newBallPosition.x = defaultState.ball.position.x
-        newBallVelocity.x *= -1
+
+        newBallVelocity.x = -1 * Math.abs(defaultState.ball.velocity.x)
+        newBallVelocity.y = defaultState.ball.velocity.y
+      } else {
+        newBallVelocity.x += newBallVelocity.x > 0 ? 0.1 : -0.1
+        newBallVelocity.y += newBallVelocity.y > 0 ? 0.1 : -0.1
       }
 
       return {

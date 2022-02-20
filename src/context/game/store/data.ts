@@ -19,7 +19,7 @@ export const defaultState: IState = {
       y: WINDOW_HEIGHT / 2 - BALL_HEIGHT / 2,
     },
     velocity: {
-      x: 400,
+      x: -400,
       y: 400,
     },
   },
@@ -40,7 +40,7 @@ export const defaultState: IState = {
     },
     velocity: {
       x: 0,
-      y: 4000,
+      y: 1000,
     },
   },
 }
