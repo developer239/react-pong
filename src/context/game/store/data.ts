@@ -15,7 +15,7 @@ export const defaultState: IState = {
   ball: {
     position: {
       x: WINDOW_WIDTH / 2,
-      y: WINDOW_HEIGHT / 2 - BALL_HEIGHT,
+      y: WINDOW_HEIGHT / 2 - BALL_HEIGHT / 2,
     },
     velocity: {
       x: 300,
@@ -25,7 +25,7 @@ export const defaultState: IState = {
   player1: {
     position: {
       x: 100,
-      y: WINDOW_HEIGHT / 2 - PLAYER_HEIGHT,
+      y: WINDOW_HEIGHT / 2 - PLAYER_HEIGHT / 2,
     },
     velocity: {
       x: 0,
@@ -35,7 +35,7 @@ export const defaultState: IState = {
   player2: {
     position: {
       x: WINDOW_WIDTH - 100,
-      y: WINDOW_HEIGHT / 2 - PLAYER_HEIGHT,
+      y: WINDOW_HEIGHT / 2 - PLAYER_HEIGHT / 2,
     },
     velocity: {
       x: 0,
