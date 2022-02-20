@@ -13,7 +13,9 @@ import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'src/services/window'
 export const reducer = (state: IState, action: IAction): IState => {
   switch (action.type) {
     case 'PLAY_AI': {
-      const player: IPlayer = state.player2
+      const player: IPlayer = {
+        ...state.player2,
+      }
 
       const newPosition = movePlayerToSafePosition(
         player.position,
