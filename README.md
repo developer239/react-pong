@@ -5,7 +5,7 @@
 
 Demo application is running [here](https://react-pong.herokuapp.com).
 
-![1](https://github.com/developer239/react-pong/blob/master/preview.png?raw=true)
+![1](https://github.com/developer239/react-pong/blob/main/preview.png?raw=true)
 
 # Development
 
