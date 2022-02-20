@@ -10,7 +10,8 @@
     "format": "prettier --write '*/**/*.{ts,tsx,css,md,json}'",
     "lint:ts": "eslint --ext .ts,.tsx src",
     "lint-staged": "lint-staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@stitches/react": "1.2.6",
