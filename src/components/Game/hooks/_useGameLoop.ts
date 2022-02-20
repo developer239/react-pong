@@ -20,14 +20,14 @@ export const useGameLoop = () => {
 
     if (deltaTime < 1) {
       if (hasPressed('ArrowUp') || hasPressed('Up')) {
-        dispatch(moveUp('player1', 500 * deltaTime))
+        dispatch(moveUp('player1', 1000 * deltaTime))
       }
 
       if (hasPressed('ArrowDown') || hasPressed('Down')) {
-        dispatch(moveDown('player1', 500 * deltaTime))
+        dispatch(moveDown('player1', 1000 * deltaTime))
       }
 
-      dispatch(moveBall(100 * deltaTime))
+      dispatch(moveBall(deltaTime))
     }
 
     millisecondsPreviousFrame = Date.now()
