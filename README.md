@@ -3,7 +3,7 @@
 
 # React Pong
 
-Demo application is running [here](https://react-pong.herokuapp.com).
+Demo application is running [here](https://pong-react.herokuapp.com).
 
 ![1](https://github.com/developer239/react-pong/blob/main/preview.png?raw=true)
 
