@@ -4,10 +4,10 @@ import { PLAYER_HEIGHT } from 'src/components/Player/data'
 import { IAction } from 'src/context/game/store/actions'
 import { defaultState } from 'src/context/game/store/data'
 import { IPlayer, IState } from 'src/context/game/store/types'
-import { calculateNewBallPosition } from 'src/services/ball'
+import { moveBallToSafePosition } from 'src/services/ball'
 import { checkBallPlayerCollision } from 'src/services/collision'
 import { mutateVelocity } from 'src/services/math'
-import { updatePlayerPosition } from 'src/services/player'
+import { movePlayerToSafePosition } from 'src/services/player'
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'src/services/window'
 
 export const reducer = (state: IState, action: IAction): IState => {
@@ -15,7 +15,7 @@ export const reducer = (state: IState, action: IAction): IState => {
     case 'PLAY_AI': {
       const player: IPlayer = state.player2
 
-      const newPosition = updatePlayerPosition(
+      const newPosition = movePlayerToSafePosition(
         player.position,
         player.velocity,
         action.payload.deltaTime
@@ -58,7 +58,7 @@ export const reducer = (state: IState, action: IAction): IState => {
 
       // Update player position
 
-      const newPosition = updatePlayerPosition(
+      const newPosition = movePlayerToSafePosition(
         player.position,
         player.velocity,
         action.payload.deltaTime
@@ -76,7 +76,7 @@ export const reducer = (state: IState, action: IAction): IState => {
     case 'MOVE_BALL': {
       // Update ball position
 
-      const newBallPosition = calculateNewBallPosition(
+      const newBallPosition = moveBallToSafePosition(
         state.ball.position,
         state.ball.velocity,
         action.payload.deltaTime

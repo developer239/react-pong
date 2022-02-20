@@ -3,7 +3,7 @@ import { IVector } from 'src/context/game/store/types'
 import { minMax } from 'src/services/math'
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'src/services/window'
 
-export const updatePlayerPosition = (
+export const movePlayerToSafePosition = (
   position: IVector,
   velocity: IVector,
   deltaTime: number,
