@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'src/services/window'
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'src/context/game/store/data'
 
 export interface IWindowSize {
   width: number

@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { Text } from 'react-konva'
 import { IProps } from 'src/components/ScoreBoard/types'
-import { WINDOW_WIDTH } from 'src/services/window'
+import { WINDOW_WIDTH } from 'src/context/game/store/data'
 
 export const ScoreBoard: FC<IProps> = memo(
   ({ player1Score, player2Score }) => (

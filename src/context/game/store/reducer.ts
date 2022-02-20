@@ -2,13 +2,18 @@
 import { BALL_HEIGHT, BALL_WIDTH } from 'src/components/Ball/data'
 import { PLAYER_HEIGHT } from 'src/components/Player/data'
 import { IAction } from 'src/context/game/store/actions'
-import { defaultState } from 'src/context/game/store/data'
+import {
+  defaultState,
+  WINDOW_HEIGHT,
+  WINDOW_WIDTH,
+} from 'src/context/game/store/data'
 import { IPlayer, IState } from 'src/context/game/store/types'
-import { moveBallToSafePosition } from 'src/services/ball'
 import { checkBallPlayerCollision } from 'src/services/collision'
-import { mutateVelocity } from 'src/services/math'
-import { movePlayerToSafePosition } from 'src/services/player'
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'src/services/window'
+import {
+  moveBallToSafePosition,
+  movePlayerToSafePosition,
+  mutateVelocity,
+} from 'src/services/movement'
 
 export const reducer = (state: IState, action: IAction): IState => {
   switch (action.type) {

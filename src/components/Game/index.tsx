@@ -15,7 +15,7 @@ const Game = () => {
 
   useGameLoop()
 
-  // TODO: improve render performance 😅
+  // TODO: further performance improvements
   return (
     <Stage ref={stageRef} width={width} height={height}>
       <Layer>

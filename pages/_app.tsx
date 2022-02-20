@@ -2,6 +2,7 @@ import { globalCss } from '@stitches/react'
 import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 
+// Konva doesn't work on server
 const GameContextProvider = dynamic(
   () => import('src/context/game/GameContextProvider'),
   {
