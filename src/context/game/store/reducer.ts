@@ -1,6 +1,6 @@
 /* eslint-disable complexity,max-lines-per-function */
 import { BALL_HEIGHT, BALL_WIDTH } from 'src/components/Ball/data'
-import { PLAYER_HEIGHT } from 'src/components/Player/data'
+import { PLAYER_HEIGHT, PLAYER_WIDTH } from 'src/components/Player/data'
 import { IAction } from 'src/context/game/store/actions'
 import {
   defaultState,
@@ -126,6 +126,16 @@ export const reducer = (state: IState, action: IAction): IState => {
 
       if (hasPlayer1Collided || hasPlayer2Collided) {
         mutateVelocity('x', newBallVelocity)
+
+        // glitching quick fix START
+        if (hasPlayer1Collided) {
+          newBallPosition.x = state.player1.position.x + PLAYER_WIDTH
+        }
+
+        if (hasPlayer2Collided) {
+          newBallPosition.x = state.player2.position.x - BALL_WIDTH
+        }
+        // glitching quick fix END
       }
 
       // Check score conditions
