@@ -40,7 +40,7 @@ export const defaultState: IState = {
     },
     velocity: {
       x: 0,
-      y: 3000,
+      y: 4000,
     },
   },
 }
