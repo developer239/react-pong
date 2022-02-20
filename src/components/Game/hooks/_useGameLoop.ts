@@ -23,7 +23,7 @@ export const useGameLoop = () => {
   const { dispatch } = useContext(GameContext)
   const { hasPressed, clearKeys } = useKeyPress()
 
-  const cycle = () => {
+  const processFrame = () => {
     deltaTime = calculateDeltaTime(msPreviousFrame)
 
     if (deltaTime < 1) {
@@ -47,5 +47,5 @@ export const useGameLoop = () => {
     clearKeys()
   }
 
-  useInterval(cycle, MS_PER_FRAME)
+  useInterval(processFrame, MS_PER_FRAME)
 }
