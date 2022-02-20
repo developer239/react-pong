@@ -1,16 +1,17 @@
+export interface IVector {
+  x: number
+  y: number
+}
+
 export interface IState {
   ball: {
-    x: number
-    y: number
-    velocityX: number
-    velocityY: number
+    position: IVector
+    velocity: IVector
   }
   player1: {
-    x: number
-    y: number
+    position: IVector
   }
   player2: {
-    x: number
-    y: number
+    position: IVector
   }
 }

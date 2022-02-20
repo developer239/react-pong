@@ -17,9 +17,9 @@ const Game = () => {
   return (
     <Stage ref={stageRef} width={width} height={height}>
       <Layer>
-        <Player x={player1.x} y={player1.y} />
-        <Player x={player2.x} y={player2.y} />
-        <Ball x={ball.x} y={ball.y} />
+        <Player x={player1.position.x} y={player1.position.y} />
+        <Player x={player2.position.x} y={player2.position.y} />
+        <Ball x={ball.position.x} y={ball.position.y} />
       </Layer>
     </Stage>
   )
