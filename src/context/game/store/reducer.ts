@@ -1,8 +1,9 @@
 /* eslint-disable complexity */
 import { BALL_HEIGHT, BALL_WIDTH } from 'src/components/Ball/data'
-import { PLAYER_HEIGHT, PLAYER_WIDTH } from 'src/components/Player/data'
+import { PLAYER_HEIGHT } from 'src/components/Player/data'
 import { IAction } from 'src/context/game/store/actions'
 import { IState } from 'src/context/game/store/types'
+import { checkBallPlayerCollision } from 'src/services/collision'
 import { minMax } from 'src/services/math'
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'src/services/window'
 
@@ -57,10 +58,7 @@ export const reducer = (state: IState, action: IAction) => {
         },
       }
     }
-    // TODO: refactor
-    // prevent ball from going out of bounds ✅️
-    // prevent ball from going inside paddle ❌
-    // bounce ball from all sides (AABB collision detection and reverse velocity for axis)
+    // TODO: prevent ball from going inside paddle
     case 'MOVE_BALL': {
       const newY = minMax(
         state.ball.y + state.ball.velocityY * action.payload.delta,
@@ -80,21 +78,22 @@ export const reducer = (state: IState, action: IAction) => {
         : state.ball.velocityY
 
       const isLeftOrRightScreen = newX <= 0 || newX >= WINDOW_WIDTH - BALL_WIDTH
-      const isLeftOrRightPaddleP1 =
-        newY >= state.player1.y &&
-        newY <= state.player1.y + PLAYER_HEIGHT &&
-        ((newX >= state.player1.x && newX <= state.player1.x + PLAYER_WIDTH) ||
-          (newX + BALL_WIDTH >= state.player1.x &&
-            newX + BALL_WIDTH <= state.player1.x + PLAYER_WIDTH))
-      const isLeftOrRightPaddleP2 =
-        newY >= state.player2.y &&
-        newY <= state.player2.y + PLAYER_HEIGHT &&
-        ((newX >= state.player2.x && newX <= state.player2.x + PLAYER_WIDTH) ||
-          (newX + BALL_WIDTH >= state.player2.x &&
-            newX + BALL_WIDTH <= state.player2.x + PLAYER_WIDTH))
+
+      const hasPlayer1Collided = checkBallPlayerCollision(
+        newX,
+        newY,
+        state.player1.x,
+        state.player1.y
+      )
+      const hasPlayer2Collided = checkBallPlayerCollision(
+        newX,
+        newY,
+        state.player2.x,
+        state.player2.y
+      )
 
       const newVelocityX =
-        isLeftOrRightScreen || isLeftOrRightPaddleP1 || isLeftOrRightPaddleP2
+        isLeftOrRightScreen || hasPlayer1Collided || hasPlayer2Collided
           ? -state.ball.velocityX
           : state.ball.velocityX
 
