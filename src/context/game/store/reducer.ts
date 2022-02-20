@@ -35,9 +35,12 @@ export const reducer = (state: IState, action: IAction): IState => {
       const ballCenterVertical = state.ball.position.x + BALL_WIDTH / 2
       const paddleCenter = player.position.y + PLAYER_HEIGHT / 2
 
+      // TODO: simplify
+      // make right paddle movement more smooth
       const isSignificantDiff =
         Math.abs(Math.abs(ballCenterVertical) - Math.abs(paddleCenter)) >
         WINDOW_HEIGHT * 0.2
+
       if (isSignificantDiff) {
         const direction = paddleCenter < ballCenterHorizontal ? 1 : -1
 
