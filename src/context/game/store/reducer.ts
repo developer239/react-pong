@@ -100,7 +100,7 @@ export const reducer = (state: IState, action: IAction): IState => {
         mutateVelocity('y', newBallVelocity)
       }
 
-      // Check screen player collision
+      // Check ball player collision
 
       const hasPlayer1Collided = checkBallPlayerCollision(
         newBallPosition,
