@@ -15,6 +15,11 @@ export const moveBall = (deltaTime: number) => ({
   payload: { deltaTime },
 })
 
+export const playAI = (deltaTime: number) => ({
+  type: 'PLAY_AI' as const,
+  payload: { deltaTime },
+})
+
 export type IAction = ReturnType<
-  typeof moveUp | typeof moveDown | typeof moveBall
+  typeof moveUp | typeof moveDown | typeof moveBall | typeof playAI
 >

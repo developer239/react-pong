@@ -1,6 +1,11 @@
 import { useContext } from 'react'
 import { GameContext } from 'src/context/game/GameContext'
-import { moveBall, moveDown, moveUp } from 'src/context/game/store/actions'
+import {
+  moveBall,
+  moveDown,
+  moveUp,
+  playAI,
+} from 'src/context/game/store/actions'
 import { MS_PER_FRAME } from 'src/context/game/store/data'
 import { useInterval } from 'src/hooks/useInterval'
 import { useKeyPress } from 'src/hooks/useKeyPress'
@@ -27,6 +32,10 @@ export const useGameLoop = () => {
 
       if (hasPressed('ArrowDown') || hasPressed('Down')) {
         dispatch(moveDown('player1', deltaTime))
+      }
+
+      if (msPreviousFrame % 100 < 20) {
+        dispatch(playAI(deltaTime))
       }
 
       dispatch(moveBall(deltaTime))

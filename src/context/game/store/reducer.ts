@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 import { BALL_HEIGHT, BALL_WIDTH } from 'src/components/Ball/data'
+import { PLAYER_HEIGHT } from 'src/components/Player/data'
 import { IAction } from 'src/context/game/store/actions'
 import { IPlayer, IState } from 'src/context/game/store/types'
 import { calculateNewBallPosition } from 'src/services/ball'
@@ -10,6 +11,34 @@ import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'src/services/window'
 
 export const reducer = (state: IState, action: IAction): IState => {
   switch (action.type) {
+    case 'PLAY_AI': {
+      const player: IPlayer = state.player2
+
+      const newPosition = updatePlayerPosition(
+        player.position,
+        player.velocity,
+        action.payload.deltaTime
+      )
+      const newVelocity = {
+        ...player.velocity,
+      }
+
+      if (
+        newPosition.y <= 0 ||
+        newPosition.y + PLAYER_HEIGHT >= WINDOW_HEIGHT
+      ) {
+        newVelocity.y *= -1
+      }
+
+      return {
+        ...state,
+        player2: {
+          ...player,
+          position: newPosition,
+          velocity: newVelocity,
+        },
+      }
+    }
     case 'MOVE_DOWN':
     case 'MOVE_UP': {
       const player: IPlayer = {

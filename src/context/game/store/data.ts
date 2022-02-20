@@ -24,7 +24,7 @@ export const defaultState: IState = {
       y: WINDOW_HEIGHT / 2 - PLAYER_HEIGHT,
     },
     velocity: {
-      x: 2000,
+      x: 0,
       y: 2000,
     },
   },
@@ -34,8 +34,8 @@ export const defaultState: IState = {
       y: WINDOW_HEIGHT / 2 - PLAYER_HEIGHT,
     },
     velocity: {
-      x: 2000,
-      y: 2000,
+      x: 0,
+      y: -2000,
     },
   },
 }
