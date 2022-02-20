@@ -34,10 +34,16 @@ export const reducer = (state: IState, action: IAction): IState => {
       const ballCenterHorizontal = state.ball.position.y + BALL_HEIGHT / 2
       const ballCenterVertical = state.ball.position.x + BALL_WIDTH / 2
       const paddleCenter = player.position.y + PLAYER_HEIGHT / 2
-      const direction = paddleCenter < ballCenterHorizontal ? 1 : -1
 
-      if (ballCenterVertical >= WINDOW_WIDTH / 3) {
-        newVelocity.y = direction * Math.abs(newVelocity.y)
+      const isSignificantDiff =
+        Math.abs(Math.abs(ballCenterVertical) - Math.abs(paddleCenter)) >
+        WINDOW_HEIGHT * 0.2
+      if (isSignificantDiff) {
+        const direction = paddleCenter < ballCenterHorizontal ? 1 : -1
+
+        if (ballCenterVertical >= WINDOW_WIDTH / 5) {
+          newVelocity.y = direction * Math.abs(newVelocity.y)
+        }
       }
 
       return {
