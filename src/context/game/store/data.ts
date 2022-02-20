@@ -18,8 +18,8 @@ export const defaultState: IState = {
       y: WINDOW_HEIGHT / 2 - BALL_HEIGHT,
     },
     velocity: {
-      x: 200,
-      y: 200,
+      x: 300,
+      y: 300,
     },
   },
   player1: {

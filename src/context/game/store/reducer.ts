@@ -49,11 +49,11 @@ export const reducer = (state: IState, action: IAction): IState => {
       // Update player velocity
 
       if (action.type === 'MOVE_DOWN') {
-        player.velocity.y = 2000
+        player.velocity.y = Math.abs(player.velocity.y)
       }
 
       if (action.type === 'MOVE_UP') {
-        player.velocity.y = -2000
+        player.velocity.y = Math.abs(player.velocity.y) * -1
       }
 
       // Update player position
