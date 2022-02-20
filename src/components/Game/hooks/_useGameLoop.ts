@@ -5,7 +5,7 @@ import { useInterval } from 'src/hooks/useInterval'
 import { useKeyPress } from 'src/hooks/useKeyPress'
 
 // TODO: move to proper place 😅
-const FPS = 30
+const FPS = 60
 const MILLISECONDS_PER_FRAME = 1000 / FPS
 
 let millisecondsPreviousFrame = 0
@@ -20,11 +20,11 @@ export const useGameLoop = () => {
 
     if (deltaTime < 1) {
       if (hasPressed('ArrowUp') || hasPressed('Up')) {
-        dispatch(moveUp('player1', 1000 * deltaTime))
+        dispatch(moveUp('player1', 2000 * deltaTime))
       }
 
       if (hasPressed('ArrowDown') || hasPressed('Down')) {
-        dispatch(moveDown('player1', 1000 * deltaTime))
+        dispatch(moveDown('player1', 2000 * deltaTime))
       }
 
       dispatch(moveBall(deltaTime))

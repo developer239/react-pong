@@ -25,6 +25,7 @@ export const defaultState = {
 
 export const reducer = (state: IState, action: IAction) => {
   switch (action.type) {
+    // TODO: set velocityX and velocityY instead of speed
     case 'MOVE_UP': {
       const player = state[action.payload.player]
 
@@ -40,6 +41,7 @@ export const reducer = (state: IState, action: IAction) => {
         },
       }
     }
+    // TODO: set velocityX and velocityY instead of speed
     case 'MOVE_DOWN': {
       const player = state[action.payload.player]
 
