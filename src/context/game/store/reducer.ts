@@ -11,7 +11,7 @@ import {
 import { IPlayer, IState } from 'src/context/game/store/types'
 import { checkBallPlayerCollision } from 'src/services/collision'
 import {
-  moveAICloseToTargetY,
+  movePlayerNearY,
   moveBallToSafePosition,
   movePlayerToSafePosition,
   mutateVelocity,
@@ -44,13 +44,9 @@ export const reducer = (state: IState, action: IAction): IState => {
       )
 
       if (state.ball.velocity.x < 0) {
-        moveAICloseToTargetY(WINDOW_CENTER, newPosition, newVelocity)
+        movePlayerNearY(WINDOW_CENTER, newPosition, newVelocity)
       } else {
-        moveAICloseToTargetY(
-          predictionY + BALL_HEIGHT / 2,
-          newPosition,
-          newVelocity
-        )
+        movePlayerNearY(predictionY + BALL_HEIGHT / 2, newPosition, newVelocity)
       }
 
       return {

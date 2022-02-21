@@ -21,7 +21,7 @@ export const predictBallMovement = (
 }
 
 // TODO: ‍🔧
-export const moveAICloseToTargetY = (
+export const movePlayerNearY = (
   targetY: number,
   currentPosition: IVector,
   newVelocity: IVector
