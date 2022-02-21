@@ -7,6 +7,7 @@ export const MS_PER_FRAME = 1000 / FPS
 
 export const WINDOW_WIDTH = window.innerWidth
 export const WINDOW_HEIGHT = window.innerHeight
+export const WINDOW_CENTER = WINDOW_HEIGHT / 2
 
 export const defaultState: IState = {
   score: {
@@ -19,8 +20,8 @@ export const defaultState: IState = {
       y: WINDOW_HEIGHT / 2 - BALL_HEIGHT / 2,
     },
     velocity: {
-      x: -400,
-      y: 400,
+      x: -600,
+      y: 600,
     },
   },
   player1: {
@@ -40,7 +41,7 @@ export const defaultState: IState = {
     },
     velocity: {
       x: 0,
-      y: 1000,
+      y: 0,
     },
   },
 }

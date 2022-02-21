@@ -1,18 +1,21 @@
 /* eslint-disable complexity,max-lines-per-function */
 import { BALL_HEIGHT, BALL_WIDTH } from 'src/components/Ball/data'
-import { PLAYER_HEIGHT, PLAYER_WIDTH } from 'src/components/Player/data'
+import { PLAYER_WIDTH } from 'src/components/Player/data'
 import { IAction } from 'src/context/game/store/actions'
 import {
   defaultState,
+  WINDOW_CENTER,
   WINDOW_HEIGHT,
   WINDOW_WIDTH,
 } from 'src/context/game/store/data'
 import { IPlayer, IState } from 'src/context/game/store/types'
 import { checkBallPlayerCollision } from 'src/services/collision'
 import {
+  moveAICloseToTargetY,
   moveBallToSafePosition,
   movePlayerToSafePosition,
   mutateVelocity,
+  predictBallMovement,
 } from 'src/services/movement'
 
 export const reducer = (state: IState, action: IAction): IState => {
@@ -31,22 +34,23 @@ export const reducer = (state: IState, action: IAction): IState => {
         ...player.velocity,
       }
 
-      const ballCenterHorizontal = state.ball.position.y + BALL_HEIGHT / 2
-      const ballCenterVertical = state.ball.position.x + BALL_WIDTH / 2
-      const paddleCenter = player.position.y + PLAYER_HEIGHT / 2
+      const predictionY = predictBallMovement(
+        state.ball.position.x,
+        state.ball.position.y,
+        state.ball.velocity.x,
+        state.ball.velocity.y,
+        WINDOW_HEIGHT,
+        WINDOW_WIDTH
+      )
 
-      // TODO: simplify
-      // make right paddle movement more smooth
-      const isSignificantDiff =
-        Math.abs(Math.abs(ballCenterVertical) - Math.abs(paddleCenter)) >
-        PLAYER_HEIGHT / 3
-
-      if (isSignificantDiff) {
-        const direction = paddleCenter < ballCenterHorizontal ? 1 : -1
-
-        if (ballCenterVertical >= WINDOW_WIDTH / 5) {
-          newVelocity.y = direction * Math.abs(newVelocity.y)
-        }
+      if (state.ball.velocity.x < 0) {
+        moveAICloseToTargetY(WINDOW_CENTER, newPosition, newVelocity)
+      } else {
+        moveAICloseToTargetY(
+          predictionY + BALL_HEIGHT / 2,
+          newPosition,
+          newVelocity
+        )
       }
 
       return {
